@@ -1,0 +1,7 @@
+id: nodejs-express-tracing
+name: Node.js Express application with dynamic tracing
+version: 0.2.1
+description: Simple Node.js Express application with health checks and application metrics for Prometheus and USDTs.
+maintainer: Anton Whalley <awhalley@ie.ibm.com>
+default-template: simple
+license: MIT
