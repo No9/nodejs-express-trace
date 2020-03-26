@@ -12,10 +12,8 @@ const fs = require('fs');
 require('appmetrics-prometheus').attach();
 
 const app = express();
-
 expresstracer(app);
 app.instrument(dte.instrument);
-app.use(dte.start);
 
 const basePath = __dirname + '/user-app/';
 
@@ -32,6 +30,8 @@ function getEntryPoint() {
 // Register the users app. As this is before the health/live/ready routes,
 // those can be overridden by the user
 const userApp = require(basePath + getEntryPoint()).app;
+app.use(dte.start);
+
 app.use('/', userApp);
 
 const healthcheck = new health.HealthChecker();

@@ -9,10 +9,12 @@ This project provides USDT support to an express app to enable dynamic tracing o
 Create a trace enabled node.js project.
 
 ```
-$ appsody init No9/nodejs-express-trace
+$ mkdir my-app
+$ cd my-app
+$ appsody init nodejs-express
 ```
 
-In your appsody project
+In the project app.js add a trace event
 ```
 const app = require('express')()
 
@@ -24,7 +26,12 @@ app.get('/event', function (req, res, next) {
 module.exports.app = app;
 ```
 
-Trace the requests with bpftrace
+Run the project
 ```
-% bpftrace -p `pgrep node` -e 'usdt::trace { printf("evt:fired %s : %s\n", str(arg0), str(arg1)) ; }'
+$ appsody run
+```
+
+As root trace the requests with bpftrace
+```
+$ sudo bpftrace -p `pgrep node` -e 'usdt::trace { printf("evt:fired %s : %s\n", str(arg0), str(arg1)) ; }'
 ```
